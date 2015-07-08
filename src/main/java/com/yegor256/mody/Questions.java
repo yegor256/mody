@@ -31,14 +31,16 @@ public interface Questions {
     /**
      * All pending now.
      * @return All un-answered questions
+     * @throws IOException If fails
      */
-    Iterable<String> pending();
+    Iterable<String> pending() throws IOException;
 
     /**
      * Put new.
      * @param coords Coordinates
      * @param text Text of it
      * @return Answer or empty if not yet answered
+     * @throws IOException If fails
      */
     String put(String coords, String text) throws IOException;
 
@@ -46,6 +48,7 @@ public interface Questions {
      * Answer it.
      * @param coords Coordinates
      * @param text Text to use
+     * @throws IOException If fails
      */
     void answer(String coords, String text) throws IOException;
 

@@ -70,6 +70,11 @@ final class DyQuestions implements Questions {
     private static final String ATTR_COUNT = "count";
 
     /**
+     * Empty answer.
+     */
+    private static final String EMPTY = "-";
+
+    /**
      * Region.
      */
     private final transient Region region;
@@ -92,7 +97,7 @@ final class DyQuestions implements Questions {
                         .withIndexName(DyQuestions.IDX)
                         .withSelect(Select.ALL_ATTRIBUTES)
                 )
-                .where(DyQuestions.ATTR_ANSWER, "-"),
+                .where(DyQuestions.ATTR_ANSWER, DyQuestions.EMPTY),
             new Function<Item, String>() {
                 @Override
                 public String apply(final Item input) {
@@ -131,7 +136,7 @@ final class DyQuestions implements Questions {
             item.put(
                 DyQuestions.ATTR_ANSWER,
                 new AttributeValueUpdate()
-                    .withValue(new AttributeValue("-"))
+                    .withValue(new AttributeValue(DyQuestions.EMPTY))
                     .withAction(AttributeAction.PUT)
             );
         }

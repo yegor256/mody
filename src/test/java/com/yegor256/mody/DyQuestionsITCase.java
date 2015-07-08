@@ -17,38 +17,36 @@
  */
 package com.yegor256.mody;
 
-import com.jcabi.matchers.XhtmlMatchers;
 import org.hamcrest.MatcherAssert;
+import org.hamcrest.Matchers;
 import org.junit.Test;
-import org.takes.Take;
-import org.takes.rq.RqFake;
-import org.takes.rs.RsPrint;
 
 /**
- * Test case for {@link TkHome}.
+ * Integration case for {@link DyQuestions}.
  * @author Yegor Bugayenko (yegor@teamed.io)
  * @version $Id$
  * @since 1.0
+ * @checkstyle ClassDataAbstractionCouplingCheck (500 lines)
  */
-public final class TkHomeTest {
+public final class DyQuestionsITCase {
 
     /**
-     * TkHome can render home page.
+     * DyQuestions can manage a question.
      * @throws Exception If some problem inside
      */
     @Test
-    public void rendersHomePage() throws Exception {
-        final Questions questions = new FkQuestions();
-        final Take take = new TkHome(questions);
+    public void managesQuestion() throws Exception {
+        final Questions questions = new DyQuestions(new Dynamo());
+        final String coords = "test/test-89-32";
+        questions.put(coords, "How are you?");
         MatcherAssert.assertThat(
-            XhtmlMatchers.xhtml(
-                new RsPrint(take.act(new RqFake())).printBody()
-            ),
-            XhtmlMatchers.hasXPaths(
-                "/page/millis",
-                "/page/questions[count(question)=2]",
-                "/page/links/link[@rel='takes:github']"
-            )
+            questions.pending(),
+            Matchers.<String>iterableWithSize(Matchers.greaterThan(0))
+        );
+        questions.answer(coords, "I'm good, thanks!");
+        MatcherAssert.assertThat(
+            questions.put(coords, ""),
+            Matchers.containsString("thanks!")
         );
     }
 

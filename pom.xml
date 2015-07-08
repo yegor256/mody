@@ -72,7 +72,6 @@
         <url>https://travis-ci.org/yegor256/mody</url>
     </ciManagement>
     <properties>
-        <jersey.version>1.18.1</jersey.version>
         <timestamp>${maven.build.timestamp}</timestamp>
     </properties>
     <dependencies>
@@ -105,10 +104,6 @@
         <dependency>
             <groupId>com.google.guava</groupId>
             <artifactId>guava</artifactId>
-        </dependency>
-        <dependency>
-            <groupId>xml-apis</groupId>
-            <artifactId>xml-apis</artifactId>
         </dependency>
         <dependency>
             <groupId>log4j</groupId>
@@ -155,13 +150,20 @@
             <scope>runtime</scope>
         </dependency>
         <dependency>
-            <groupId>com.jcabi</groupId>
-            <artifactId>jcabi-immutable</artifactId>
+            <groupId>com.sun.jersey</groupId>
+            <artifactId>jersey-client</artifactId>
+            <version>1.19</version>
+            <scope>runtime</scope>
         </dependency>
         <dependency>
             <groupId>com.jcabi</groupId>
             <artifactId>jcabi-manifests</artifactId>
             <version>1.1</version>
+        </dependency>
+        <dependency>
+            <groupId>com.jcabi</groupId>
+            <artifactId>jcabi-xml</artifactId>
+            <scope>test</scope>
         </dependency>
         <dependency>
             <groupId>com.jcabi</groupId>
@@ -287,7 +289,7 @@
                                 </goals>
                                 <configuration>
                                     <portNames>
-                                        <portName>dynamodblocal.port</portName>
+                                        <portName>dynamo.port</portName>
                                     </portNames>
                                 </configuration>
                             </execution>
@@ -306,7 +308,7 @@
                                     <goal>stop</goal>
                                 </goals>
                                 <configuration>
-                                    <port>${dynamodblocal.port}</port>
+                                    <port>${dynamo.port}</port>
                                     <dist>${project.build.directory}/dynamodb-dist</dist>
                                     <key>${failsafe.dynamo.key}</key>
                                     <secret>${failsafe.dynamo.secret}</secret>
@@ -322,7 +324,7 @@
                         <configuration>
                             <parallel>none</parallel>
                             <systemPropertyVariables combine.children="append">
-                                <dynamo.port>${dynamodblocal.port}</dynamo.port>
+                                <dynamo.port>${dynamo.port}</dynamo.port>
                             </systemPropertyVariables>
                         </configuration>
                     </plugin>
@@ -357,7 +359,7 @@
                                     <systemProperties>
                                         <property>
                                             <key>dynamo.port</key>
-                                            <value>${dynamodblocal.port}</value>
+                                            <value>${dynamo.port}</value>
                                         </property>
                                     </systemProperties>
                                 </configuration>

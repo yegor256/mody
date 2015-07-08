@@ -3,6 +3,10 @@
         {
             "AttributeName": "coords",
             "AttributeType": "S"
+        },
+        {
+            "AttributeName": "answer",
+            "AttributeType": "S"
         }
     ],
     "KeySchema": [
