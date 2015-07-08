@@ -29,6 +29,7 @@ import com.jcabi.dynamo.Item;
 import com.jcabi.dynamo.QueryValve;
 import com.jcabi.dynamo.Region;
 import java.io.IOException;
+import java.util.Iterator;
 
 /**
  * Questions in DynamoDB.
@@ -95,6 +96,7 @@ final class DyQuestions implements Questions {
                 .through(
                     new QueryValve()
                         .withIndexName(DyQuestions.IDX)
+                        .withConsistentRead(false)
                         .withSelect(Select.ALL_ATTRIBUTES)
                 )
                 .where(DyQuestions.ATTR_ANSWER, DyQuestions.EMPTY),
@@ -118,12 +120,25 @@ final class DyQuestions implements Questions {
     @Override
     public String put(final String coords, final String text)
         throws IOException {
-        final Item item = this.region.table(DyQuestions.TBL).put(
-            new Attributes()
-                .with(DyQuestions.HASH, coords)
-                .with(DyQuestions.ATTR_QUESTION, text)
-                .with(DyQuestions.ATTR_COUNT, 0L)
-        );
+        final Iterator<Item> items = this.region.table(DyQuestions.TBL)
+            .frame()
+            .through(new QueryValve())
+            .where(DyQuestions.HASH, coords)
+            .iterator();
+        final Item item;
+        if (items.hasNext()) {
+            item = items.next();
+        } else {
+            item = this.region.table(DyQuestions.TBL).put(
+                new Attributes()
+                    .with(DyQuestions.HASH, coords)
+                    .with(DyQuestions.ATTR_QUESTION, text)
+                    .with(
+                        DyQuestions.ATTR_COUNT,
+                        new AttributeValue().withN("0")
+                    )
+            );
+        }
         item.put(
             new AttributeUpdates().with(
                 DyQuestions.ATTR_COUNT,
@@ -157,7 +172,7 @@ final class DyQuestions implements Questions {
                 DyQuestions.ATTR_ANSWER,
                 new AttributeValueUpdate()
                     .withValue(new AttributeValue(text))
-                    .withAction(AttributeAction.ADD)
+                    .withAction(AttributeAction.PUT)
             )
         );
     }
