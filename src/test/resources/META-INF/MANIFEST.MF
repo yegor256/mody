@@ -1,0 +1,8 @@
+Mody-Revision: a1b2c3e
+Mody-Version: 1.0
+Mody-Date: ${timestamp}
+Mody-DynamoKey: ${failsafe.dynamo.key}
+Mody-DynamoSecret: ${failsafe.dynamo.secret}
+Mody-GithubId: ${failsafe.github.id}
+Mody-GithubSecret: ${failsafe.github.secret}
+Mody-SecurityKey: ${failsafe.security.key}

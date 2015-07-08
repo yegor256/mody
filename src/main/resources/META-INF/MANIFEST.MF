@@ -1,0 +1,8 @@
+Mody-Revision: BUILD
+Mody-Version: ${project.version}
+Mody-Date: ${timestamp}
+Mody-DynamoKey: ${dynamo.key}
+Mody-DynamoSecret: ${dynamo.secret}
+Mody-GithubId: ${github.id}
+Mody-GithubSecret: ${github.secret}
+Mody-SecurityKey: ${security.key}

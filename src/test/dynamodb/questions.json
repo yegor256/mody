@@ -1,0 +1,37 @@
+{
+    "AttributeDefinitions": [
+        {
+            "AttributeName": "coords",
+            "AttributeType": "S"
+        }
+    ],
+    "KeySchema": [
+        {
+            "AttributeName": "coords",
+            "KeyType": "HASH"
+        }
+    ],
+    "ProvisionedThroughput": {
+        "ReadCapacityUnits": "1",
+        "WriteCapacityUnits": "1"
+    },
+    "TableName": "mody-questions",
+    "GlobalSecondaryIndexes": [
+        {
+            "IndexName": "pending",
+            "KeySchema": [
+                {
+                    "AttributeName": "answer",
+                    "KeyType": "HASH"
+                }
+            ],
+            "Projection": {
+                "ProjectionType": "ALL"
+            },
+            "ProvisionedThroughput": {
+                "ReadCapacityUnits": "1",
+                "WriteCapacityUnits": "1"
+            }
+        }
+    ]
+}
