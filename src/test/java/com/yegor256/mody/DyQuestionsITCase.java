@@ -39,14 +39,23 @@ public final class DyQuestionsITCase {
         final Questions questions = new DyQuestions(new Dynamo());
         final String coords = "test/test-89-32";
         questions.put(coords, "How are you?");
+        questions.put(coords, "");
         MatcherAssert.assertThat(
             questions.pending(),
-            Matchers.<String>iterableWithSize(Matchers.greaterThan(0))
+            Matchers.hasItem("test/test-89-32 2 How are you?")
         );
         questions.answer(coords, "I'm good, thanks!");
         MatcherAssert.assertThat(
             questions.put(coords, ""),
             Matchers.containsString("thanks!")
+        );
+        MatcherAssert.assertThat(
+            questions.pending(),
+            Matchers.not(
+                Matchers.hasItem(
+                    Matchers.startsWith(coords)
+                )
+            )
         );
     }
 

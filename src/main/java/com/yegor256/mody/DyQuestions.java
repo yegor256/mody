@@ -105,8 +105,9 @@ final class DyQuestions implements Questions {
                 public String apply(final Item input) {
                     try {
                         return String.format(
-                            "%s %s",
+                            "%s %s %s",
                             input.get(DyQuestions.HASH).getS(),
+                            input.get(DyQuestions.ATTR_COUNT).getN(),
                             input.get(DyQuestions.ATTR_QUESTION).getS()
                         );
                     } catch (final IOException ex) {
