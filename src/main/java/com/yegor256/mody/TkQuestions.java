@@ -58,7 +58,7 @@ final class TkQuestions implements Take {
     public Response act(final Request req) throws IOException {
         final Href home = new RqHref.Base(req).href().path("answer");
         return new RsPage(
-            "/xsl/home.xsl",
+            "/xsl/questions.xsl",
             req,
             new XeAppend(
                 "questions",
