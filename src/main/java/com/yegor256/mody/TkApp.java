@@ -39,7 +39,7 @@ import org.takes.tk.TkWrap;
  *
  * @author Yegor Bugayenko (yegor@teamed.io)
  * @version $Id$
- * @since 1.50
+ * @since 1.0
  * @checkstyle ClassDataAbstractionCouplingCheck (500 lines)
  * @checkstyle MultipleStringLiteralsCheck (500 lines)
  */
@@ -108,10 +108,12 @@ public final class TkApp extends TkWrap {
                 )
             ),
             new FkAuthenticated(
-                new TkFork(
-                    new FkRegex("/", new TkQuestions(qtns)),
-                    new FkRegex("/put", new TkPut(qtns)),
-                    new FkRegex("/answer", new TkAnswer(qtns))
+                new TkSecure(
+                    new TkFork(
+                        new FkRegex("/", new TkQuestions(qtns)),
+                        new FkRegex("/put", new TkPut(qtns)),
+                        new FkRegex("/answer", new TkAnswer(qtns))
+                    )
                 )
             )
         );
