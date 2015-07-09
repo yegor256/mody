@@ -41,7 +41,8 @@ public final class TkSecure implements Take {
      * List of URNs that can have access.
      */
     private static final String[] ADMINS = {
-        "urn:github:",
+        "urn:github:526301",
+        "urn:test:1",
     };
 
     /**
@@ -63,7 +64,12 @@ public final class TkSecure implements Take {
         if (!ArrayUtils.contains(TkSecure.ADMINS, identity.urn())) {
             throw new RsForward(
                 new RsLogout(
-                    new RsFlash("you're not allowed, sorry")
+                    new RsFlash(
+                        String.format(
+                            "you're not allowed, sorry (%s)",
+                            identity.urn()
+                        )
+                    )
                 )
             );
         }

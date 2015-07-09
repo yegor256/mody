@@ -77,8 +77,10 @@ public final class TkApp extends TkWrap {
                     new TkGzip(
                         new TkFlash(
                             new TkAppFallback(
-                                new TkForward(
-                                    TkApp.regex(qtns)
+                                new TkAppAuth(
+                                    new TkForward(
+                                        TkApp.regex(qtns)
+                                    )
                                 )
                             )
                         )
