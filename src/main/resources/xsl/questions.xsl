@@ -26,6 +26,14 @@
         </title>
     </xsl:template>
     <xsl:template match="page" mode="body">
+        <p>
+            <xsl:text>@</xsl:text>
+            <xsl:value-of select="identity/login"/>
+            <xsl:text> | </xsl:text>
+            <a href="{links/link[@rel='takes:logout']/@href}">
+                <xsl:text>logout</xsl:text>
+            </a>
+        </p>
         <xsl:apply-templates select="questions"/>
     </xsl:template>
     <xsl:template match="questions">

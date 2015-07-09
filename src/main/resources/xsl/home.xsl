@@ -28,7 +28,7 @@
     <xsl:template match="page" mode="body">
         <p>
             <a href="{links/link[@rel='takes:github']/@href}">
-                <xsl:text>Login</xsl:text>
+                <xsl:text>login</xsl:text>
             </a>
         </p>
     </xsl:template>
