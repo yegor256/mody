@@ -31,5 +31,8 @@
                 <xsl:text>login</xsl:text>
             </a>
         </p>
+        <p>
+            <xsl:text>It's a private area, stay away</xsl:text>
+        </p>
     </xsl:template>
 </xsl:stylesheet>
