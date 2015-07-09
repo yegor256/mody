@@ -33,7 +33,19 @@
     </xsl:template>
     <xsl:template match="question">
         <p>
-            <xsl:value-of select="."/>
+            <xsl:value-of select="coords"/>
+            <xsl:text> </xsl:text>
+            <xsl:value-of select="count"/>
         </p>
+        <p>
+            <xsl:value-of select="text" disable-output-escaping="yes"/>
+        </p>
+        <form action="{links/link[@rel='answer']/@href}" method="post">
+            <fieldset>
+                <input name="text" type="text"/>
+                <input name="coords" type="hidden" value="{coords}"/>
+                <button type="submit">post</button>
+            </fieldset>
+        </form>
     </xsl:template>
 </xsl:stylesheet>

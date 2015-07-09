@@ -44,7 +44,7 @@ public final class Entry {
      */
     public static void main(final String... args) throws IOException {
         new FtCLI(
-            new TkApp(new DyQuestions(new Dynamo())),
+            new TkApp(new SafeQuestions(new DyQuestions(new Dynamo()))),
             args
         ).start(Exit.NEVER);
     }

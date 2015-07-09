@@ -24,6 +24,7 @@ import org.takes.Take;
 import org.takes.facets.flash.RsFlash;
 import org.takes.facets.forward.RsForward;
 import org.takes.rq.RqForm;
+import org.takes.rq.RqGreedy;
 
 /**
  * Answer a question.
@@ -49,7 +50,9 @@ final class TkAnswer implements Take {
 
     @Override
     public Response act(final Request req) throws IOException {
-        final RqForm.Smart form = new RqForm.Smart(new RqForm.Base(req));
+        final RqForm.Smart form = new RqForm.Smart(
+            new RqForm.Base(new RqGreedy(req))
+        );
         this.questions.answer(form.single("coords"), form.single("text"));
         return new RsForward(
             new RsFlash("answered, thanks")

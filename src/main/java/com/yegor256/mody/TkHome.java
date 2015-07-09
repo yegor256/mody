@@ -21,6 +21,8 @@ import java.io.IOException;
 import org.takes.Request;
 import org.takes.Response;
 import org.takes.Take;
+import org.takes.misc.Href;
+import org.takes.rq.RqHref;
 import org.takes.rs.xe.XeAppend;
 import org.takes.rs.xe.XeDirectives;
 import org.takes.rs.xe.XeLink;
@@ -53,6 +55,7 @@ final class TkHome implements Take {
 
     @Override
     public Response act(final Request req) throws IOException {
+        final Href home = new RqHref.Base(req).href().path("answer");
         return new RsPage(
             "/xsl/home.xsl",
             req,
@@ -63,11 +66,16 @@ final class TkHome implements Take {
                     new XeTransform.Func<String>() {
                         @Override
                         public XeSource transform(final String txt) {
+                            final String[] parts = txt.split("\\s", 3);
                             return new XeAppend(
                                 "question",
                                 new XeDirectives(
-                                    new Directives().set(txt)
-                                )
+                                    new Directives()
+                                        .add("coords").set(parts[0]).up()
+                                        .add("count").set(parts[1]).up()
+                                        .add("text").set(parts[2]).up()
+                                ),
+                                new XeLink("answer", home)
                             );
                         }
                     }

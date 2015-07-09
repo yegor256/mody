@@ -53,7 +53,7 @@ final class TkPut implements Take {
         final RqForm.Smart form = new RqForm.Smart(new RqForm.Base(req));
         final String answer = this.questions.put(
             String.format(
-                "%s #%s #%s",
+                "%s-%s-%s",
                 form.single("repo"),
                 form.single("issue"),
                 form.single("comment")
