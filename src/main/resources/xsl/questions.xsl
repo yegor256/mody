@@ -49,11 +49,9 @@
             <xsl:value-of select="text" disable-output-escaping="yes"/>
         </p>
         <form action="{links/link[@rel='answer']/@href}" method="post">
-            <fieldset>
-                <input name="text" type="text"/>
-                <input name="coords" type="hidden" value="{coords}"/>
-                <button type="submit">post</button>
-            </fieldset>
+            <input name="text" type="text" size="45"/>
+            <input name="coords" type="hidden" value="{coords}"/>
+            <button type="submit">post</button>
         </form>
     </xsl:template>
 </xsl:stylesheet>
