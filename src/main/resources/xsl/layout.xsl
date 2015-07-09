@@ -26,7 +26,9 @@
                 <xsl:apply-templates select="." mode="head"/>
             </head>
             <body>
-                <xsl:apply-templates select="." mode="body"/>
+                <section>
+                    <xsl:apply-templates select="." mode="body"/>
+                </section>
             </body>
         </html>
     </xsl:template>
