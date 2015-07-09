@@ -83,6 +83,7 @@ final class SafeQuestions implements Questions {
     /**
      * Validate coords and throw if failed.
      * @param coords The coords
+     * @return TRUE if valid
      */
     private static boolean isValid(final String coords) {
         return coords.matches("[0-9a-zA-Z\\-/]+");

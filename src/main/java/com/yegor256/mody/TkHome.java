@@ -37,6 +37,7 @@ import org.xembly.Directives;
  * @version $Id$
  * @since 1.50
  * @checkstyle ClassDataAbstractionCouplingCheck (500 lines)
+ * @checkstyle MultipleStringLiteralsCheck (500 lines)
  */
 final class TkHome implements Take {
 
