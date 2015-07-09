@@ -26,10 +26,26 @@
         </title>
     </xsl:template>
     <xsl:template match="page" mode="body">
+        <xsl:apply-templates select="questions"/>
+    </xsl:template>
+    <xsl:template match="questions">
+        <xsl:apply-templates select="question"/>
+    </xsl:template>
+    <xsl:template match="question">
         <p>
-            <a href="{links/link[@rel='takes:github']/@href}">
-                <xsl:text>Login</xsl:text>
-            </a>
+            <xsl:value-of select="coords"/>
+            <xsl:text> </xsl:text>
+            <xsl:value-of select="count"/>
         </p>
+        <p>
+            <xsl:value-of select="text" disable-output-escaping="yes"/>
+        </p>
+        <form action="{links/link[@rel='answer']/@href}" method="post">
+            <fieldset>
+                <input name="text" type="text"/>
+                <input name="coords" type="hidden" value="{coords}"/>
+                <button type="submit">post</button>
+            </fieldset>
+        </form>
     </xsl:template>
 </xsl:stylesheet>

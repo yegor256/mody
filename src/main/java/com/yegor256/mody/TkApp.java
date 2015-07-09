@@ -21,6 +21,8 @@ import com.jcabi.manifests.Manifests;
 import java.nio.charset.Charset;
 import org.takes.Take;
 import org.takes.facets.flash.TkFlash;
+import org.takes.facets.fork.FkAnonymous;
+import org.takes.facets.fork.FkAuthenticated;
 import org.takes.facets.fork.FkRegex;
 import org.takes.facets.fork.TkFork;
 import org.takes.facets.forward.TkForward;
@@ -39,6 +41,7 @@ import org.takes.tk.TkWrap;
  * @version $Id$
  * @since 1.50
  * @checkstyle ClassDataAbstractionCouplingCheck (500 lines)
+ * @checkstyle MultipleStringLiteralsCheck (500 lines)
  */
 public final class TkApp extends TkWrap {
 
@@ -95,12 +98,21 @@ public final class TkApp extends TkWrap {
     private static Take regex(final Questions qtns) {
         return new TkFork(
             new FkRegex("/robots.txt", ""),
-            new FkRegex("/", new TkHome(qtns)),
-            new FkRegex("/put", new TkPut(qtns)),
-            new FkRegex("/answer", new TkAnswer(qtns)),
             new FkRegex(
                 "/xsl/.*",
                 new TkWithType(new TkClasspath(), "text/xsl")
+            ),
+            new FkAnonymous(
+                new TkFork(
+                    new FkRegex("/", new TkHome())
+                )
+            ),
+            new FkAuthenticated(
+                new TkFork(
+                    new FkRegex("/", new TkQuestions(qtns)),
+                    new FkRegex("/put", new TkPut(qtns)),
+                    new FkRegex("/answer", new TkAnswer(qtns))
+                )
             )
         );
     }

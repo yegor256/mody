@@ -21,14 +21,6 @@ import java.io.IOException;
 import org.takes.Request;
 import org.takes.Response;
 import org.takes.Take;
-import org.takes.misc.Href;
-import org.takes.rq.RqHref;
-import org.takes.rs.xe.XeAppend;
-import org.takes.rs.xe.XeDirectives;
-import org.takes.rs.xe.XeLink;
-import org.takes.rs.xe.XeSource;
-import org.takes.rs.xe.XeTransform;
-import org.xembly.Directives;
 
 /**
  * Index resource, front page of the website.
@@ -36,54 +28,12 @@ import org.xembly.Directives;
  * @author Yegor Bugayenko (yegor@teamed.io)
  * @version $Id$
  * @since 1.50
- * @checkstyle ClassDataAbstractionCouplingCheck (500 lines)
- * @checkstyle MultipleStringLiteralsCheck (500 lines)
  */
 final class TkHome implements Take {
 
-    /**
-     * Questions.
-     */
-    private final transient Questions questions;
-
-    /**
-     * Ctor.
-     * @param qtns Questions
-     */
-    TkHome(final Questions qtns) {
-        this.questions = qtns;
-    }
-
     @Override
     public Response act(final Request req) throws IOException {
-        final Href home = new RqHref.Base(req).href().path("answer");
-        return new RsPage(
-            "/xsl/home.xsl",
-            req,
-            new XeAppend(
-                "questions",
-                new XeTransform<>(
-                    this.questions.pending(),
-                    new XeTransform.Func<String>() {
-                        @Override
-                        public XeSource transform(final String txt) {
-                            final String[] parts = txt.split("\\s", 3);
-                            return new XeAppend(
-                                "question",
-                                new XeDirectives(
-                                    new Directives()
-                                        .add("coords").set(parts[0]).up()
-                                        .add("count").set(parts[1]).up()
-                                        .add("text").set(parts[2]).up()
-                                ),
-                                new XeLink("answer", home)
-                            );
-                        }
-                    }
-                )
-            ),
-            new XeLink("answer", "/answer")
-        );
+        return new RsPage("/xsl/home.xsl", req);
     }
 
 }

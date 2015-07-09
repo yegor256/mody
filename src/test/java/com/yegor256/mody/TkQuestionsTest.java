@@ -30,7 +30,7 @@ import org.takes.rs.RsPrint;
  * @version $Id$
  * @since 1.0
  */
-public final class TkHomeTest {
+public final class TkQuestionsTest {
 
     /**
      * TkHome can render home page.
@@ -39,7 +39,7 @@ public final class TkHomeTest {
     @Test
     public void rendersHomePage() throws Exception {
         final Questions questions = new FkQuestions();
-        final Take take = new TkHome(questions);
+        final Take take = new TkQuestions(questions);
         MatcherAssert.assertThat(
             XhtmlMatchers.xhtml(
                 new RsPrint(take.act(new RqFake())).printBody()
