@@ -156,7 +156,11 @@ final class DyQuestions implements Questions {
                     .withAction(AttributeAction.PUT)
             );
         }
-        return item.get(DyQuestions.ATTR_ANSWER).getS();
+        String answer = item.get(DyQuestions.ATTR_ANSWER).getS();
+        if (DyQuestions.EMPTY.equals(answer)) {
+            answer = "";
+        }
+        return answer;
     }
 
     @Override
