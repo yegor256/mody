@@ -27,9 +27,32 @@
             </head>
             <body>
                 <section>
+                    <xsl:apply-templates select="flash"/>
                     <xsl:apply-templates select="." mode="body"/>
                 </section>
             </body>
         </html>
+    </xsl:template>
+    <xsl:template match="flash">
+        <p>
+            <xsl:attribute name="style">
+                <xsl:text>color:</xsl:text>
+                <xsl:choose>
+                    <xsl:when test="level = 'INFO'">
+                        <xsl:text>#348C62</xsl:text>
+                    </xsl:when>
+                    <xsl:when test="level = 'WARNING'">
+                        <xsl:text>orange</xsl:text>
+                    </xsl:when>
+                    <xsl:when test="level = 'SEVERE'">
+                        <xsl:text>red</xsl:text>
+                    </xsl:when>
+                    <xsl:otherwise>
+                        <xsl:text>inherit</xsl:text>
+                    </xsl:otherwise>
+                </xsl:choose>
+            </xsl:attribute>
+            <xsl:value-of select="message"/>
+        </p>
     </xsl:template>
 </xsl:stylesheet>
