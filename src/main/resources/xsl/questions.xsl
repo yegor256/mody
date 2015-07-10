@@ -43,9 +43,13 @@
     </xsl:template>
     <xsl:template match="question">
         <p>
-            <xsl:value-of select="coords"/>
+            <code><xsl:value-of select="coords"/></code>
             <xsl:text> </xsl:text>
             <xsl:value-of select="count"/>
+            <xsl:text> time</xsl:text>
+            <xsl:if test="count &gt; 1">
+                <xsl:text>s</xsl:text>
+            </xsl:if>
         </p>
         <p>
             <xsl:value-of select="text" disable-output-escaping="yes"/>
