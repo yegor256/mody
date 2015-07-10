@@ -70,7 +70,8 @@ public final class TkSecure implements Take {
                             identity.urn()
                         )
                     )
-                )
+                ),
+                "/?PsByFlag=PsLogout"
             );
         }
         return this.origin.act(request);
