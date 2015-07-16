@@ -1,4 +1,4 @@
-Mody-Revision: BUILD
+Mody-Revision: ecdaa8d
 Mody-Version: ${project.version}
 Mody-Date: ${timestamp}
 Mody-DynamoKey: ${dynamo.key}
