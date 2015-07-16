@@ -59,4 +59,23 @@ public final class DyQuestionsITCase {
         );
     }
 
+    /**
+     * DyQuestions can manage complaints.
+     * @throws Exception If some problem inside
+     */
+    @Test
+    public void managesComplaints() throws Exception {
+        final Questions questions = new DyQuestions(new Dynamo());
+        final String coords = "test/test-55-32";
+        questions.put(coords, "ok, let's try");
+        questions.answer(coords, "let's close it");
+        questions.complain(coords, "no, let's open it again");
+        MatcherAssert.assertThat(
+            questions.pending(),
+            Matchers.hasItem(
+                Matchers.startsWith(coords)
+            )
+        );
+    }
+
 }

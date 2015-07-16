@@ -64,6 +64,23 @@ final class SafeQuestions implements Questions {
     }
 
     @Override
+    public void complain(final String coords, final String text)
+        throws IOException {
+        if (coords.isEmpty()) {
+            throw new IllegalArgumentException("coords can't be just empty");
+        }
+        if (!SafeQuestions.isValid(coords)) {
+            throw new IllegalArgumentException(
+                String.format("invalid coords for complain '%s'", coords)
+            );
+        }
+        if (text.isEmpty()) {
+            throw new IllegalArgumentException("complaint text can't be empty");
+        }
+        this.origin.complain(coords, text);
+    }
+
+    @Override
     public void answer(final String coords, final String text)
         throws IOException {
         if (coords.isEmpty()) {

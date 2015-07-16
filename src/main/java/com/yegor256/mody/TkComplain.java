@@ -18,47 +18,47 @@
 package com.yegor256.mody;
 
 import java.io.IOException;
+import org.takes.Request;
+import org.takes.Response;
+import org.takes.Take;
+import org.takes.rq.RqForm;
+import org.takes.rs.RsText;
 
 /**
- * Questions.
+ * Complain about already closed question.
  *
  * @author Yegor Bugayenko (yegor@teamed.io)
  * @version $Id$
- * @since 1.50
+ * @since 1.0
  */
-public interface Questions {
+final class TkComplain implements Take {
 
     /**
-     * All pending now.
-     * @return All un-answered questions
-     * @throws IOException If fails
+     * Questions.
      */
-    Iterable<String> pending() throws IOException;
+    private final transient Questions questions;
 
     /**
-     * Put new.
-     * @param coords Coordinates
-     * @param text Text of it
-     * @return Answer or empty if not yet answered
-     * @throws IOException If fails
+     * Ctor.
+     * @param qtns Questions
      */
-    String put(String coords, String text) throws IOException;
+    TkComplain(final Questions qtns) {
+        this.questions = qtns;
+    }
 
-    /**
-     * Complain about already made answer.
-     * @param coords Coordinates
-     * @param text Text of complaint
-     * @throws IOException If fails
-     * @since 0.4
-     */
-    void complain(String coords, String text) throws IOException;
-
-    /**
-     * Answer it.
-     * @param coords Coordinates
-     * @param text Text to use
-     * @throws IOException If fails
-     */
-    void answer(String coords, String text) throws IOException;
+    @Override
+    public Response act(final Request req) throws IOException {
+        final RqForm.Smart form = new RqForm.Smart(new RqForm.Base(req));
+        this.questions.complain(
+            String.format(
+                "%s-%s-%s",
+                form.single("repo"),
+                form.single("issue"),
+                form.single("comment")
+            ),
+            form.single("text")
+        );
+        return new RsText("OK");
+    }
 
 }

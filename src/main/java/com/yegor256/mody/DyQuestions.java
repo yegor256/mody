@@ -164,6 +164,34 @@ final class DyQuestions implements Questions {
     }
 
     @Override
+    public void complain(final String coords, final String text)
+        throws IOException {
+        final Item item = this.region.table(DyQuestions.TBL)
+            .frame()
+            .through(new QueryValve())
+            .where(DyQuestions.HASH, coords)
+            .iterator().next();
+        item.put(
+            DyQuestions.ATTR_ANSWER,
+            new AttributeValueUpdate()
+                .withValue(new AttributeValue(DyQuestions.EMPTY))
+                .withAction(AttributeAction.PUT)
+        );
+        item.put(
+            DyQuestions.ATTR_QUESTION,
+            new AttributeValueUpdate().withValue(
+                new AttributeValue(
+                    String.format(
+                        "%s<br/><br/>%s",
+                        item.get(DyQuestions.ATTR_QUESTION).getS(),
+                        text
+                    )
+                )
+            ).withAction(AttributeAction.PUT)
+        );
+    }
+
+    @Override
     public void answer(final String coords, final String text)
         throws IOException {
         final Item item = this.region.table(DyQuestions.TBL)

@@ -42,6 +42,11 @@ final class FkQuestions implements Questions {
     }
 
     @Override
+    public void complain(final String coords, final String text) {
+        //
+    }
+
+    @Override
     public void answer(final String coords, final String text) {
         //
     }
