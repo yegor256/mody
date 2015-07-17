@@ -98,12 +98,15 @@ public final class TkAppTest {
      * @throws Exception If some problem inside
      */
     @Test
+    @SuppressWarnings("PMD.AvoidInstantiatingObjectsInLoops")
     public void rendersAllPossibleUrls() throws Exception {
         final Take take = new TkApp(new FkQuestions());
         final String[] uris = {
+            "/?x=y",
             "/robots.txt",
             "/put",
             "/complain",
+            "/answer",
             "/xsl/layout.xsl",
         };
         for (final String uri : uris) {
