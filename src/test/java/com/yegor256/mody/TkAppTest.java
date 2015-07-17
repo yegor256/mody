@@ -26,8 +26,10 @@ import java.io.IOException;
 import java.net.HttpURLConnection;
 import java.net.URI;
 import org.hamcrest.MatcherAssert;
+import org.hamcrest.Matchers;
 import org.junit.Test;
 import org.takes.Take;
+import org.takes.facets.hamcrest.HmRsStatus;
 import org.takes.http.FtRemote;
 import org.takes.rq.RqFake;
 import org.takes.rs.RsPrint;
@@ -89,6 +91,32 @@ public final class TkAppTest {
                 }
             }
         );
+    }
+
+    /**
+     * App can render all possible URLs.
+     * @throws Exception If some problem inside
+     */
+    @Test
+    public void rendersAllPossibleUrls() throws Exception {
+        final Take take = new TkApp(new FkQuestions());
+        final String[] uris = {
+            "/robots.txt",
+            "/put",
+            "/complain",
+            "/xsl/layout.xsl",
+        };
+        for (final String uri : uris) {
+            MatcherAssert.assertThat(
+                uri,
+                take.act(new RqFake("INFO", uri)),
+                Matchers.not(
+                    new HmRsStatus(
+                        HttpURLConnection.HTTP_NOT_FOUND
+                    )
+                )
+            );
+        }
     }
 
 }
