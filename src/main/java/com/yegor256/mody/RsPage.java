@@ -35,6 +35,7 @@ import org.takes.rs.xe.RsXembly;
 import org.takes.rs.xe.XeAppend;
 import org.takes.rs.xe.XeChain;
 import org.takes.rs.xe.XeDate;
+import org.takes.rs.xe.XeLink;
 import org.takes.rs.xe.XeLinkHome;
 import org.takes.rs.xe.XeLinkSelf;
 import org.takes.rs.xe.XeLocalhost;
@@ -84,6 +85,7 @@ final class RsPage extends RsWrap {
                 new XeChain(src),
                 new XeLinkHome(req),
                 new XeLinkSelf(req),
+                new XeLink("favicon", "/favicon.ico", "image/png"),
                 new XeMillis(true),
                 new XeDate(),
                 new XeSLA(),

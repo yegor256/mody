@@ -24,6 +24,21 @@
         <title>
             <xsl:text>mody</xsl:text>
         </title>
+        <link id='favicon' rel="shortcut icon" type="image/png"
+            data-origin="{links/link[@rel='favicon']/@href}"
+            href="{links/link[@rel='favicon']/@href}"/>
+        <script type="text/javascript">
+            setInterval(
+                function() {
+                    var link = document.getElementById('favicon');
+                    link.setAttribute(
+                        'href',
+                        link.getAttribute('data-origin') + '?' + new Date().getTime()
+                    );
+                },
+                60 * 1000
+            );
+        </script>
     </xsl:template>
     <xsl:template match="page" mode="body">
         <p>

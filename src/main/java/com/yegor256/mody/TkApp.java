@@ -115,7 +115,8 @@ public final class TkApp extends TkWrap {
                         new FkRegex("/", new TkQuestions(qtns)),
                         new FkRegex("/put", new TkPut(qtns)),
                         new FkRegex("/complain", new TkComplain(qtns)),
-                        new FkRegex("/answer", new TkAnswer(qtns))
+                        new FkRegex("/answer", new TkAnswer(qtns)),
+                        new FkRegex("/favicon.ico", new TkFavicon(qtns))
                     )
                 )
             )
