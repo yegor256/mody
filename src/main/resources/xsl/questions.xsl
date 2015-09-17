@@ -26,7 +26,7 @@
         </title>
         <link id='favicon' rel="shortcut icon" type="image/png"
             data-origin="{links/link[@rel='favicon']/@href}"
-            href="{links/link[@rel='favicon']/@href}"/>
+            href="{links/link[@rel='favicon']/@href}?{@date}{@sla}"/>
         <script type="text/javascript">
             setInterval(
                 function() {
