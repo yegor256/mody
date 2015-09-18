@@ -70,7 +70,7 @@
             <xsl:value-of select="text" disable-output-escaping="yes"/>
         </p>
         <form action="{links/link[@rel='answer']/@href}" method="post">
-            <input name="text" type="text" size="45"/>
+            <input name="text" type="text" size="70"/>
             <input name="coords" type="hidden" value="{coords}"/>
             <button type="submit">post</button>
         </form>
