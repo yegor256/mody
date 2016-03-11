@@ -23,7 +23,7 @@
     <parent>
         <groupId>com.jcabi</groupId>
         <artifactId>parent</artifactId>
-        <version>0.34</version>
+        <version>0.42</version>
     </parent>
     <groupId>com.yegor256</groupId>
     <artifactId>mody</artifactId>
@@ -78,23 +78,23 @@
         <dependency>
             <groupId>org.takes</groupId>
             <artifactId>takes</artifactId>
-            <version>0.20.2</version>
+            <version>0.32.6</version>
         </dependency>
         <dependency>
             <groupId>com.amazonaws</groupId>
             <artifactId>aws-java-sdk-core</artifactId>
-            <version>1.9.17</version>
+            <version>1.10.60</version>
             <scope>runtime</scope>
         </dependency>
         <dependency>
             <groupId>com.amazonaws</groupId>
             <artifactId>aws-java-sdk-dynamodb</artifactId>
-            <version>1.9.17</version>
+            <version>1.10.60</version>
         </dependency>
         <dependency>
             <groupId>com.jcabi.incubator</groupId>
             <artifactId>xembly</artifactId>
-            <version>0.21</version>
+            <version>0.22</version>
         </dependency>
         <dependency>
             <groupId>org.hamcrest</groupId>
@@ -152,7 +152,7 @@
         <dependency>
             <groupId>com.sun.jersey</groupId>
             <artifactId>jersey-client</artifactId>
-            <version>1.19</version>
+            <version>1.19.1</version>
             <scope>runtime</scope>
         </dependency>
         <dependency>
@@ -421,6 +421,7 @@
                     <plugin>
                         <groupId>com.qulice</groupId>
                         <artifactId>qulice-maven-plugin</artifactId>
+                        <version>0.16.4</version>
                         <configuration>
                             <excludes>
                                 <exclude>findbugs:.*</exclude>

@@ -26,12 +26,11 @@ import java.io.IOException;
 import java.net.HttpURLConnection;
 import java.net.URI;
 import org.hamcrest.MatcherAssert;
-import org.hamcrest.Matchers;
 import org.junit.Test;
 import org.takes.Take;
-import org.takes.facets.hamcrest.HmRsStatus;
 import org.takes.http.FtRemote;
 import org.takes.rq.RqFake;
+import org.takes.rq.RqWithHeader;
 import org.takes.rs.RsPrint;
 
 /**
@@ -41,6 +40,7 @@ import org.takes.rs.RsPrint;
  * @since 1.0
  * @checkstyle ClassDataAbstractionCouplingCheck (500 lines)
  */
+@SuppressWarnings("PMD.AvoidDuplicateLiterals")
 public final class TkAppTest {
 
     /**
@@ -53,7 +53,14 @@ public final class TkAppTest {
         MatcherAssert.assertThat(
             XhtmlMatchers.xhtml(
                 new RsPrint(
-                    take.act(new RqFake("GET", "/"))
+                    take.act(
+                        new RqWithHeader(
+                            new RqFake("GET", "/"),
+                            // @checkstyle MultipleStringLiteralsCheck (1 line)
+                            "Accept",
+                            "text/xml"
+                        )
+                    )
                 ).printBody()
             ),
             XhtmlMatchers.hasXPaths(
@@ -91,35 +98,6 @@ public final class TkAppTest {
                 }
             }
         );
-    }
-
-    /**
-     * App can render all possible URLs.
-     * @throws Exception If some problem inside
-     */
-    @Test
-    @SuppressWarnings("PMD.AvoidInstantiatingObjectsInLoops")
-    public void rendersAllPossibleUrls() throws Exception {
-        final Take take = new TkApp(new FkQuestions());
-        final String[] uris = {
-            "/?x=y",
-            "/robots.txt",
-            "/put",
-            "/complain",
-            "/answer",
-            "/xsl/layout.xsl",
-        };
-        for (final String uri : uris) {
-            MatcherAssert.assertThat(
-                uri,
-                take.act(new RqFake("INFO", uri)),
-                Matchers.not(
-                    new HmRsStatus(
-                        HttpURLConnection.HTTP_NOT_FOUND
-                    )
-                )
-            );
-        }
     }
 
 }

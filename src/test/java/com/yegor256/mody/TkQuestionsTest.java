@@ -22,6 +22,7 @@ import org.hamcrest.MatcherAssert;
 import org.junit.Test;
 import org.takes.Take;
 import org.takes.rq.RqFake;
+import org.takes.rq.RqWithHeader;
 import org.takes.rs.RsPrint;
 
 /**
@@ -42,7 +43,16 @@ public final class TkQuestionsTest {
         final Take take = new TkQuestions(questions);
         MatcherAssert.assertThat(
             XhtmlMatchers.xhtml(
-                new RsPrint(take.act(new RqFake())).printBody()
+                new RsPrint(
+                    take.act(
+                        new RqWithHeader(
+                            new RqFake("GET", "/"),
+                            // @checkstyle MultipleStringLiteralsCheck (1 line)
+                            "Accept",
+                            "text/xml"
+                        )
+                    )
+                ).printBody()
             ),
             XhtmlMatchers.hasXPaths(
                 "/page/millis",
