@@ -70,7 +70,7 @@
             <xsl:value-of select="text" disable-output-escaping="yes"/>
         </p>
         <form action="{links/link[@rel='answer']/@href}" method="post">
-            <input name="text" type="text" size="70">
+            <input name="text" type="text" style="width:100%">
                 <xsl:if test="position() = 1">
                     <xsl:attribute name="autofocus">autofocus</xsl:attribute>
                 </xsl:if>
