@@ -194,7 +194,7 @@ final class DyQuestions implements Questions {
 
     @Override
     public String guess(final String coords) throws IOException {
-        throw new UnsupportedOperationException("#guess()");
+        return "";
     }
 
     @Override
