@@ -65,25 +65,36 @@ final class TkQuestions implements Take {
                 "questions",
                 new XeTransform<>(
                     this.questions.pending(),
-                    new XeTransform.Func<String>() {
-                        @Override
-                        public XeSource transform(final String txt) {
-                            final String[] parts = txt.split("\\s", 3);
-                            return new XeAppend(
-                                "question",
-                                new XeDirectives(
-                                    new Directives()
-                                        .add("coords").set(parts[0]).up()
-                                        .add("count").set(parts[1]).up()
-                                        .add("text").set(parts[2]).up()
-                                ),
-                                new XeLink("answer", home)
-                            );
-                        }
-                    }
+                    txt -> this.source(txt, home)
                 )
             ),
             new XeLink("answer", "/answer")
+        );
+    }
+
+    /**
+     * Convert question to source.
+     * @param txt Text
+     * @param home Home HREF
+     * @return Source
+     * @throws IOException If fails
+     */
+    private XeSource source(final String txt, final Href home)
+        throws IOException {
+        final String[] parts = txt.split("\\s", 3);
+        final String coords = parts[0];
+        return new XeAppend(
+            "question",
+            new XeDirectives(
+                new Directives()
+                    .add("coords").set(coords).up()
+                    .add("count").set(parts[1]).up()
+                    .add("text").set(parts[2]).up()
+                    .add("guess")
+                    .set(this.questions.guess(coords))
+                    .up()
+            ),
+            new XeLink("answer", home)
         );
     }
 

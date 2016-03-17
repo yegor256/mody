@@ -74,6 +74,11 @@
                 <xsl:if test="position() = 1">
                     <xsl:attribute name="autofocus">autofocus</xsl:attribute>
                 </xsl:if>
+                <xsl:if test="guess">
+                    <xsl:attribute name="value">
+                        <xsl:value-of select="guess"/>
+                    </xsl:attribute>
+                </xsl:if>
             </input>
             <input name="coords" type="hidden" value="{coords}"/>
             <button type="submit">post</button>
