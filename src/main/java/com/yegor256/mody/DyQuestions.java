@@ -21,7 +21,6 @@ import com.amazonaws.services.dynamodbv2.model.AttributeAction;
 import com.amazonaws.services.dynamodbv2.model.AttributeValue;
 import com.amazonaws.services.dynamodbv2.model.AttributeValueUpdate;
 import com.amazonaws.services.dynamodbv2.model.Select;
-import com.google.common.base.Function;
 import com.google.common.collect.Iterables;
 import com.jcabi.dynamo.AttributeUpdates;
 import com.jcabi.dynamo.Attributes;
@@ -101,22 +100,18 @@ final class DyQuestions implements Questions {
                         .withSelect(Select.ALL_ATTRIBUTES)
                 )
                 .where(DyQuestions.ATTR_ANSWER, DyQuestions.EMPTY),
-            new Function<Item, String>() {
-                @Override
-                public String apply(final Item input) {
-                    try {
-                        return String.format(
-                            "%s %s %s",
-                            input.get(DyQuestions.HASH).getS(),
-                            input.get(DyQuestions.ATTR_COUNT).getN(),
-                            input.get(DyQuestions.ATTR_QUESTION).getS()
-                        );
-                    } catch (final IOException ex) {
-                        throw new IllegalStateException(ex);
-                    }
+            input -> {
+                try {
+                    return String.format(
+                        "%s %s %s",
+                        input.get(DyQuestions.HASH).getS(),
+                        input.get(DyQuestions.ATTR_COUNT).getN(),
+                        input.get(DyQuestions.ATTR_QUESTION).getS()
+                    );
+                } catch (final IOException ex) {
+                    throw new IllegalStateException(ex);
                 }
-            }
-        );
+            });
     }
 
     @Override
@@ -193,8 +188,8 @@ final class DyQuestions implements Questions {
     }
 
     @Override
-    public String guess(final String coords) throws IOException {
-        return "";
+    public Brain brain() {
+        return new DyBrain(this.region);
     }
 
     @Override
@@ -213,6 +208,10 @@ final class DyQuestions implements Questions {
                     .withValue(new AttributeValue(text))
                     .withAction(AttributeAction.PUT)
             )
+        );
+        this.brain().teach(
+            item.get(DyQuestions.ATTR_QUESTION).getS(),
+            text
         );
     }
 

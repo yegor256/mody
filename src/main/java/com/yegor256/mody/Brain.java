@@ -20,51 +20,28 @@ package com.yegor256.mody;
 import java.io.IOException;
 
 /**
- * Questions.
+ * Brain.
  *
  * @author Yegor Bugayenko (yegor@teamed.io)
  * @version $Id$
- * @since 0.1
+ * @since 0.6
  */
-public interface Questions {
+public interface Brain {
 
     /**
-     * All pending now.
-     * @return All un-answered questions
+     * Teach it.
+     * @param question The question
+     * @param answer The answer
      * @throws IOException If fails
      */
-    Iterable<String> pending() throws IOException;
+    void teach(String question, String answer) throws IOException;
 
     /**
-     * Put new.
-     * @param coords Coordinates
-     * @param text Text of it
-     * @return Answer or empty if not yet answered
+     * Guess an answer.
+     * @param question The question
+     * @return Most possible answer
      * @throws IOException If fails
      */
-    String put(String coords, String text) throws IOException;
-
-    /**
-     * Complain about already made answer.
-     * @param coords Coordinates
-     * @param text Text of complaint
-     * @throws IOException If fails
-     * @since 0.4
-     */
-    void complain(String coords, String text) throws IOException;
-
-    /**
-     * Get brain.
-     * @return Brain
-     */
-    Brain brain();
-
-    /**
-     * Answer it.
-     * @param coords Coordinates
-     * @param text Text to use
-     * @throws IOException If fails
-     */
-    void answer(String coords, String text) throws IOException;
+    String guess(String question) throws IOException;
 
 }

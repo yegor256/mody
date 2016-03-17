@@ -17,43 +17,22 @@
  */
 package com.yegor256.mody;
 
-import java.util.Arrays;
-
 /**
- * Fake questions.
+ * Fake brain.
  *
  * @author Yegor Bugayenko (yegor@teamed.io)
  * @version $Id$
  * @since 1.0
  */
-final class FkQuestions implements Questions {
+final class FkBrain implements Brain {
 
     @Override
-    public Iterable<String> pending() {
-        return Arrays.asList(
-            "a/b-12-44 this is first",
-            "a/dd-89-897 this is the second"
-        );
+    public void teach(final String question, final String answer) {
+        // nothing
     }
 
     @Override
-    public String put(final String coords, final String text) {
+    public String guess(final String question) {
         return "";
     }
-
-    @Override
-    public void complain(final String coords, final String text) {
-        //
-    }
-
-    @Override
-    public Brain brain() {
-        return new FkBrain();
-    }
-
-    @Override
-    public void answer(final String coords, final String text) {
-        //
-    }
-
 }

@@ -17,54 +17,39 @@
  */
 package com.yegor256.mody;
 
+import com.jcabi.dynamo.Region;
 import java.io.IOException;
 
 /**
- * Questions.
+ * Brain in DynamoDB.
  *
  * @author Yegor Bugayenko (yegor@teamed.io)
  * @version $Id$
- * @since 0.1
+ * @since 0.6
  */
-public interface Questions {
+final class DyBrain implements Brain {
 
     /**
-     * All pending now.
-     * @return All un-answered questions
-     * @throws IOException If fails
+     * Region.
      */
-    Iterable<String> pending() throws IOException;
+    private final transient Region region;
 
     /**
-     * Put new.
-     * @param coords Coordinates
-     * @param text Text of it
-     * @return Answer or empty if not yet answered
-     * @throws IOException If fails
+     * Ctor.
+     * @param reg Region
      */
-    String put(String coords, String text) throws IOException;
+    DyBrain(final Region reg) {
+        this.region = reg;
+    }
 
-    /**
-     * Complain about already made answer.
-     * @param coords Coordinates
-     * @param text Text of complaint
-     * @throws IOException If fails
-     * @since 0.4
-     */
-    void complain(String coords, String text) throws IOException;
+    @Override
+    public void teach(final String question, final String answer)
+        throws IOException {
+        assert this.region != null;
+    }
 
-    /**
-     * Get brain.
-     * @return Brain
-     */
-    Brain brain();
-
-    /**
-     * Answer it.
-     * @param coords Coordinates
-     * @param text Text to use
-     * @throws IOException If fails
-     */
-    void answer(String coords, String text) throws IOException;
-
+    @Override
+    public String guess(final String question) throws IOException {
+        return "";
+    }
 }

@@ -92,15 +92,16 @@ final class TkQuestions implements Take {
         throws IOException {
         final String[] parts = txt.split("\\s", 3);
         final String coords = parts[0];
+        final String text = parts[2];
         return new XeAppend(
             "question",
             new XeDirectives(
                 new Directives()
                     .add("coords").set(coords).up()
                     .add("count").set(parts[1]).up()
-                    .add("text").set(parts[2]).up()
+                    .add("text").set(text).up()
                     .add("guess")
-                    .set(this.questions.guess(coords))
+                    .set(this.questions.brain().guess(text))
                     .up()
             ),
             new XeLink("answer", home)
