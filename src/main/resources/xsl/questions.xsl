@@ -55,6 +55,13 @@
     </xsl:template>
     <xsl:template match="questions">
         <xsl:apply-templates select="question"/>
+        <xsl:if test="count(question) &lt; @total">
+            <p>
+                <xsl:text>There are </xsl:text>
+                <xsl:value-of select="@total - count(question)"/>
+                <xsl:text>+ more questions below.</xsl:text>
+            </p>
+        </xsl:if>
     </xsl:template>
     <xsl:template match="question">
         <p>
