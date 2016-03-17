@@ -23,7 +23,7 @@
     <parent>
         <groupId>com.jcabi</groupId>
         <artifactId>parent</artifactId>
-        <version>0.42</version>
+        <version>0.43</version>
     </parent>
     <groupId>com.yegor256</groupId>
     <artifactId>mody</artifactId>
@@ -83,13 +83,13 @@
         <dependency>
             <groupId>com.amazonaws</groupId>
             <artifactId>aws-java-sdk-core</artifactId>
-            <version>1.10.60</version>
+            <version>1.10.61</version>
             <scope>runtime</scope>
         </dependency>
         <dependency>
             <groupId>com.amazonaws</groupId>
             <artifactId>aws-java-sdk-dynamodb</artifactId>
-            <version>1.10.60</version>
+            <version>1.10.61</version>
         </dependency>
         <dependency>
             <groupId>com.jcabi.incubator</groupId>
@@ -138,6 +138,7 @@
         <dependency>
             <groupId>com.jcabi</groupId>
             <artifactId>jcabi-dynamo</artifactId>
+            <version>0.21</version>
         </dependency>
         <dependency>
             <groupId>com.jcabi</groupId>

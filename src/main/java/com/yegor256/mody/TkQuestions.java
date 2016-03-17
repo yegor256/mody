@@ -17,6 +17,8 @@
  */
 package com.yegor256.mody;
 
+import com.google.common.collect.Iterables;
+import com.jcabi.aspects.Tv;
 import java.io.IOException;
 import org.takes.Request;
 import org.takes.Response;
@@ -24,6 +26,7 @@ import org.takes.Take;
 import org.takes.misc.Href;
 import org.takes.rq.RqHref;
 import org.takes.rs.xe.XeAppend;
+import org.takes.rs.xe.XeChain;
 import org.takes.rs.xe.XeDirectives;
 import org.takes.rs.xe.XeLink;
 import org.takes.rs.xe.XeSource;
@@ -58,14 +61,20 @@ final class TkQuestions implements Take {
     @Override
     public Response act(final Request req) throws IOException {
         final Href home = new RqHref.Base(req).href().path("answer");
+        final Iterable<String> list = this.questions.pending();
         return new RsPage(
             "/xsl/questions.xsl",
             req,
             new XeAppend(
                 "questions",
-                new XeTransform<>(
-                    this.questions.pending(),
-                    txt -> this.source(txt, home)
+                new XeChain(
+                    new XeTransform<>(
+                        Iterables.limit(list, Tv.FIVE),
+                        txt -> this.source(txt, home)
+                    )
+                ),
+                new XeDirectives(
+                    new Directives().attr("total", Iterables.size(list))
                 )
             ),
             new XeLink("answer", "/answer")

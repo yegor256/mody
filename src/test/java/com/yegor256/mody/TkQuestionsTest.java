@@ -56,6 +56,7 @@ public final class TkQuestionsTest {
             ),
             XhtmlMatchers.hasXPaths(
                 "/page/millis",
+                "/page/questions[@total=2]",
                 "/page/questions[count(question)=2]",
                 "/page/links/link[@rel='takes:github']",
                 "/page/questions/question/coords",
