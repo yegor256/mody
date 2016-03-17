@@ -81,6 +81,19 @@ final class SafeQuestions implements Questions {
     }
 
     @Override
+    public String guess(final String coords) throws IOException {
+        if (coords.isEmpty()) {
+            throw new IllegalArgumentException("can't guess, coords are empty");
+        }
+        if (!SafeQuestions.isValid(coords)) {
+            throw new IllegalArgumentException(
+                String.format("can't guess, invalid coords '%s'", coords)
+            );
+        }
+        return this.origin.guess(coords);
+    }
+
+    @Override
     public void answer(final String coords, final String text)
         throws IOException {
         if (coords.isEmpty()) {

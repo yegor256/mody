@@ -47,6 +47,11 @@ final class FkQuestions implements Questions {
     }
 
     @Override
+    public String guess(final String coords) {
+        return "something...";
+    }
+
+    @Override
     public void answer(final String coords, final String text) {
         //
     }

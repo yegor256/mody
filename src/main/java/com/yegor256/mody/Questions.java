@@ -54,6 +54,14 @@ public interface Questions {
     void complain(String coords, String text) throws IOException;
 
     /**
+     * Guess an answer.
+     * @param coords Coordinates
+     * @return Most possible answer
+     * @throws IOException If fails
+     */
+    String guess(String coords) throws IOException;
+
+    /**
      * Answer it.
      * @param coords Coordinates
      * @param text Text to use

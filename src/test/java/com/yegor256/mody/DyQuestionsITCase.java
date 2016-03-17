@@ -19,6 +19,7 @@ package com.yegor256.mody;
 
 import org.hamcrest.MatcherAssert;
 import org.hamcrest.Matchers;
+import org.junit.Ignore;
 import org.junit.Test;
 
 /**
@@ -75,6 +76,32 @@ public final class DyQuestionsITCase {
             Matchers.hasItem(
                 Matchers.startsWith(coords)
             )
+        );
+    }
+
+    /**
+     * DyQuestions can guess right.
+     * @throws Exception If some problem inside
+     */
+    @Test
+    @Ignore
+    public void guessesRight() throws Exception {
+        final Questions questions = new DyQuestions(new Dynamo());
+        final String[][] base = {
+            {"what is the weather today?", "it's rainy"},
+            {"how is the weather?", "it's rain"},
+            {"how good is the weather", "bad, it's rainy"},
+            {"what is your name?", "Jeffrey"},
+            {"how old are you?", "I'm 21"},
+        };
+        for (int idx = 0; idx < base.length; ++idx) {
+            final String coords = String.format("test/t-%d", idx);
+            questions.put(coords, base[idx][0]);
+            questions.answer(coords, base[idx][1]);
+        }
+        MatcherAssert.assertThat(
+            questions.guess("the weather is good?"),
+            Matchers.equalTo("rain")
         );
     }
 

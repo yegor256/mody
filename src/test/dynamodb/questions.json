@@ -7,6 +7,10 @@
         {
             "AttributeName": "answer",
             "AttributeType": "S"
+        },
+        {
+            "AttributeName": "count",
+            "AttributeType": "N"
         }
     ],
     "KeySchema": [
@@ -27,6 +31,10 @@
                 {
                     "AttributeName": "answer",
                     "KeyType": "HASH"
+                },
+                {
+                    "AttributeName": "count",
+                    "KeyType": "RANGE"
                 }
             ],
             "Projection": {

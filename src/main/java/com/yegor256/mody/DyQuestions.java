@@ -97,6 +97,7 @@ final class DyQuestions implements Questions {
                     new QueryValve()
                         .withIndexName(DyQuestions.IDX)
                         .withConsistentRead(false)
+                        .withScanIndexForward(false)
                         .withSelect(Select.ALL_ATTRIBUTES)
                 )
                 .where(DyQuestions.ATTR_ANSWER, DyQuestions.EMPTY),
@@ -189,6 +190,11 @@ final class DyQuestions implements Questions {
                 )
             ).withAction(AttributeAction.PUT)
         );
+    }
+
+    @Override
+    public String guess(final String coords) throws IOException {
+        throw new UnsupportedOperationException("#guess()");
     }
 
     @Override
