@@ -47,6 +47,10 @@
             <xsl:text> | </xsl:text>
             <xsl:value-of select="version/name"/>
             <xsl:text> | </xsl:text>
+            <a href="{links/link[@rel='home']/@href}">
+                <xsl:text>inbox</xsl:text>
+            </a>
+            <xsl:text> | </xsl:text>
             <a href="{links/link[@rel='takes:logout']/@href}">
                 <xsl:text>logout</xsl:text>
             </a>
