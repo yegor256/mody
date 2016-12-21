@@ -12,10 +12,10 @@ architect:
 - yegor256
 - alex-palevsky
 assets:
-  id_rsa: yegor256/home#assets/heroku-key
-  settings.xml: yegor256/home#assets/mody/settings.xml
-  id_rsa.pub: yegor256/home#assets/heroku-key.pub
-  s3cfg: yegor256/home#assets/s3cfg
+  id_rsa: zerocracy/home#assets/heroku-key
+  settings.xml: zerocracy/home#assets/mody/settings.xml
+  id_rsa.pub: zerocracy/home#assets/heroku-key.pub
+  s3cfg: zerocracy/home#assets/s3cfg
 merge:
   script: |-
     mvn help:system clean install -Pqulice -Pmody --errors --settings ../settings.xml
@@ -26,8 +26,7 @@ deploy:
   script: |-
     mvn clean package -Pmody --errors --settings ../settings.xml --batch-mode
     mvn clean
-    pdd --source=$(pwd) --verbose --file=mody.xml
-    s3cmd --no-progress put mody.xml --config=../s3cfg s3://pdd.teamed.io/mody.xml
+    pdd --source=$(pwd) --verbose --file=/dev/null
 env:
   MAVEN_OPTS: -XX:MaxPermSize=256m -Xmx1g
 release:
